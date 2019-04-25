@@ -1,0 +1,76 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background-color: silver;
+    border: 5px solid white;
+    height: 100%;
+    width: 100%;
+}
+
+#container {
+    width: 66%;
+    height: 80%;
+    margin: 10% auto;
+    border: 1px solid black;
+}
+
+#controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 10%;
+    border: 1px solid white;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+}
+button:focus {outline:0;}
+
+#playground {
+    position: relative;
+    overflow: hidden;
+    width: 90%;
+    height: 90%;
+    margin: 0 auto;
+    border: 1px solid red;
+}
+
+.orb {
+    background-color: blueviolet;
+    position: absolute;
+    top: 0px;
+    left: -30px;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    animation-name: triangle;
+    animation-duration: 5s;
+    animation-direction: alternate;
+    animation-timing-function: linear;
+    /* animation-iteration-count: infinite; */
+}
+
+@keyframes triangle {
+  0% {left: -50px; top: 0%;}
+  25% {left: 25%; top: 100%;}
+  50% {left: 50%; top: 0%;}
+  75% {left: 75%; top: 100%;}
+  100% {left: 100%; top: 0%;}
+}
+

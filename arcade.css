@@ -60,7 +60,7 @@ button:focus {outline:0;}
     height: 50px;
     border-radius: 50%;
     animation-name: triangle;
-    animation-duration: 5s;
+    animation-duration: 10s;
     animation-direction: alternate;
     animation-timing-function: linear;
     /* animation-iteration-count: infinite; */

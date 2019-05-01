@@ -18,7 +18,7 @@ body {
 }
 
 #container {
-    width: 66%;
+    width: 800px;
     height: 80%;
     margin: 5rem auto;
     border: 1px solid black;
@@ -44,33 +44,60 @@ button:focus {outline:0;}
 #playground {
     position: relative;
     overflow: hidden;
-    width: 90%;
+    width: 100%;
     height: 90%;
     margin: 0 auto;
     border: 1px solid red;
 }
 
+#playground:hover {
+    cursor: crosshair;
+}
+
 .orb {
-    background-color: blueviolet;
     position: absolute;
     top: 0px;
     left: -30px;
     display: inline-block;
     width: 50px;
     height: 50px;
-    border-radius: 50%;
-    animation-name: triangle;
-    animation-duration: 6s;
-    animation-direction: alternate;
+    /* border: 1px solid black; */
+    animation-name: xAxis;
+    animation-duration: 2s;
     animation-timing-function: linear;
-    /* animation-iteration-count: infinite; */
 }
 
-@keyframes triangle {
+.orb::after {
+    content: '';
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background-color: blueviolet;
+    border-radius: 50%;
+    animation-name: yAxis;
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+}
+
+/* @keyframes triangle {
   0% {left: -50px; top: 0%;}
   25% {left: 25%; top: 100%;}
   50% {left: 50%; top: 0%;}
   75% {left: 75%; top: 100%;}
   100% {left: 100%; top: 0%;}
-}
+} */
 
+@keyframes xAxis {
+    25% {transform: translateX(200px);}
+    50% {transform: translateX(400px);}
+    75% {transform: translateX(600px);}
+    100% {transform: translateX(800px);}
+}
+/* Wie schaffe ich es, genau 25% bzw 50% etc der Breite/Höhe zum bestimmten Zeitpunktzu erreichen?? */
+
+@keyframes yAxis {
+    25% {transform: translateY(620px);}
+    50% {transform: translateY(0px);}
+    75% {transform: translateY(620px);}
+    100% {transform: translateY(0px);}
+}

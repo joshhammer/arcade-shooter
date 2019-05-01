@@ -3,10 +3,11 @@ const playground = document.querySelector('#playground');
 const spawnButton = document.querySelector('#spawnBtn');
 const clearButton = document.querySelector('#clearBtn');
 const orbs = [];
+let killCount = 0;
+
 
 // button click events
 spawnButton.addEventListener('click', function(){
-    // createOrb();
     new Orb();
 })
 
@@ -24,17 +25,25 @@ class Orb {
     spawnOrb() {
         this.node = document.createElement('div');
         this.node.classList.add('orb');
-        this.node.classList.add('animation');
+        this.node.classList.add('orb::after');
+        // this.node.addEventListener('click', () => {
+        //     console.log('clicked me!')
+        // });
         playground.appendChild(this.node);
         orbs.push(Orb);
     }
-
+// Hier habe ich das Problem, dass animationend 2x fired, weil es ja eigentlich auch zwei Animationen sind. Das produziert dann einen Error in der Console
     deleteOrb() {
-        const testOrb = this.node;
-        testOrb.addEventListener('animationend', () => {
-        playground.removeChild(testOrb);
-        orbs.pop();
+        this.node.addEventListener('animationend', (event) => {
+            console.log(event)
+            if (event.animationName == 'xAxis'){
+                console.log(event.animationName);
+                playground.removeChild(this.node);
+            }
+            console.log(playground)
+            console.log(this.node)
         });
+        orbs.pop();
     }
 }
 
@@ -47,12 +56,3 @@ const removeAllOrbs = function () {
     });
     orbs.length = 0;
 }
-
-
-    // spawnOrb(){
-    //     const orb = document.createElement('div');
-    //     orb.classList.add('orb');
-    //     // orb.classList.add('animation');
-    //     playground.appendChild(orb);
-    //     orbs.push(orb);
-    // }

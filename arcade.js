@@ -3,85 +3,96 @@ const playground = document.querySelector('#playground');
 const spawnButton = document.querySelector('#spawnBtn');
 const restartButton = document.querySelector('#restartBtn');
 const startButton = document.querySelector('#startBtn');
+const levelNumber = document.querySelector('#levelNumber');
 const orbs = [];
-let killCount = 0;
+const gunShot = new Audio();
 let killNumber = document.querySelector('#killNumber');
 let killText = document.querySelector('#killText');
-const gunShot = new Audio()
+let orbZindex;
+let divZindex = 10;
+let divHeight = 10;
+let killCount = 0;
+let levelCount = 1;
+let orbIntervalTime = 2000;
 
 class Orb {
+
     constructor(name = 'TurboOrb'){
         this.name = name
         this.spawnOrb();
         this.deleteOrb();
         this.onHit();
     }
+
     spawnOrb() {
         this.node = document.createElement('div');
         this.node.classList.add('orb');
         this.node.classList.add('orb::after');
-        // this.node.addEventListener('click', () => {
-        //     console.log('clicked me!')
-        // });
+        this.node.style.zIndex = randomOrbZindex();
+        console.log('Orb z-Index= ' + orbZindex);
         playground.appendChild(this.node);
         orbs.push(Orb);
     }
-// Hier habe ich das Problem, dass animationend 2x fired, weil es ja eigentlich auch zwei Animationen sind. Das produziert dann einen Error in der Console
+
     deleteOrb() {
         this.node.addEventListener('animationend', (event) => {
             // console.log(event)
             if (event.animationName == 'xAxis'){
                 // console.log(event.animationName);
                 playground.removeChild(this.node);
+                orbs.pop();
             }
         });
-        orbs.pop();
     }
 
     onHit() {
         this.node.addEventListener('click', () => {
             playground.removeChild(this.node);
             killCount++;
-            // killNumber.textContent = killCount;
+            killNumber.textContent = killCount;
             // playgunShot();
         });
 
     }
 }
 
-// this one starts the game and maks orbs appear in random intervals
+// this one starts the game and maks orbs appear in random intervals from 250ms up to 2s
 startButton.addEventListener('click', () => {
     startGame();
 })
 
-// this button clears everything and resets the screen
+// this button restarts the game
 restartButton.addEventListener('click', () => {
     stopGame();
     startGame();
-    // killText.textContent = 'Kills: '
-    // killNumber.textContent = killCount;
 })
 
-
+// this function starts the game and produces orbs
 const startGame = function() {
     produceOrbs();
-    tGame = setTimeout(stopGame, 10000);
+    levelInterval = setInterval(advanceLevel, 10000);
 }
 
+// this function solely produces Orbs in a certain interval
 const produceOrbs = function () {
-    let random = Math.floor(Math.random() * 2000 + 1)
+    let random = Math.floor(Math.random() * orbIntervalTime + 50)
     new Orb();
     tOrbs = setTimeout(produceOrbs, random);
 }
 
 // this function currently stops the game entirely and clears all orbs
 const stopGame = function () {
+    removeLevels();
     removeAllOrbs();
     clearTimeout(tOrbs);
-    clearTimeout(tGame);
+    clearInterval(levelInterval);
+    // clearTimeout(tGame);
     killCount = 0;
-    // killText.textContent = 'GAME OVER';
-    // killNumber.textContent = '';
+    killNumber.textContent = killCount;
+    levelCount = 1;
+    levelNumber.textContent = levelCount;
+    playground.style.backgroundColor = 'silver';
+    console.clear();
 }
 
 
@@ -95,10 +106,35 @@ const removeAllOrbs = function () {
     orbs.length = 0;
 }
 
+const removeLevels = function() {
+    const allLevels = Array.from(document.querySelectorAll('.levelDiv'));
+    allLevels.forEach(level => {
+        playground.removeChild(level);
+    });
+}
 
+// function to create a new level
 const advanceLevel = function() {
-    let randomBgColor = randomColor();
-    playground.style.backgroundColor = randomBgColor;
+    if(levelCount >= 10){
+        stopGame();
+    }
+    else {
+        let randomBgColor = randomColor();
+        let levelDiv = document.createElement('div');
+        levelDiv.classList.add('levelDiv');
+        levelDiv.style.backgroundColor = randomBgColor;
+        // levelDiv.style.height = `${makeRandomlHeight()}%`;
+        levelDiv.style.height = `${divHeight}%`;
+        levelDiv.style.zIndex = divZindex;
+        playground.appendChild(levelDiv);
+        console.log('DIV Height= ' + divHeight);
+        console.log('Div Z-index= ' + divZindex);
+        levelCount++;
+        divZindex--;
+        divHeight += 10;
+        orbIntervalTime -= 200;
+        levelNumber.textContent = levelCount;
+    }
 }
 
 // this function plays the gunshot sound on click
@@ -108,12 +144,13 @@ const playgunShot = function() {
 }
 
 const randomColor = function() {
-    let redValue = Math.floor(Math.random() * 256);
-    let greenValue = Math.floor(Math.random() * 256);
-    let blueValue = Math.floor(Math.random() * 256);
+    const redValue = Math.floor(Math.random() * 256);
+    const greenValue = Math.floor(Math.random() * 256);
+    const blueValue = Math.floor(Math.random() * 256);
     return "rgb(" + redValue + ", " + greenValue + ", " + blueValue + ")";
 }
 
-
-
-
+const randomOrbZindex = function() {
+    orbZindex = Math.floor(Math.random() *20);
+    return orbZindex;
+}

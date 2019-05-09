@@ -49,7 +49,9 @@ class Orb {
         this.node.addEventListener('click', () => {
             playground.removeChild(this.node);
             killCount++;
+            console.log(killCount);
             killNumber.textContent = killCount;
+            checkKillCount();
             // playgunShot();
         });
 
@@ -70,7 +72,7 @@ restartButton.addEventListener('click', () => {
 // this function starts the game and produces orbs
 const startGame = function() {
     produceOrbs();
-    levelInterval = setInterval(advanceLevel, 10000);
+    // levelInterval = setInterval(advanceLevel, 10000);
 }
 
 // this function solely produces Orbs in a certain interval
@@ -85,7 +87,7 @@ const stopGame = function () {
     removeLevels();
     removeAllOrbs();
     clearTimeout(tOrbs);
-    clearInterval(levelInterval);
+    // clearInterval(levelInterval);
     // clearTimeout(tGame);
     killCount = 0;
     killNumber.textContent = killCount;
@@ -153,4 +155,10 @@ const randomColor = function() {
 const randomOrbZindex = function() {
     orbZindex = Math.floor(Math.random() *20);
     return orbZindex;
+}
+
+const checkKillCount = function(){
+    if (killCount != 0 && killCount%10 == 0) {
+        advanceLevel();
+    }
 }

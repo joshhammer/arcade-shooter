@@ -5,7 +5,7 @@ const restartButton = document.querySelector('#restartBtn');
 const startButton = document.querySelector('#startBtn');
 const levelNumber = document.querySelector('#levelNumber');
 const orbs = [];
-const gunShot = new Audio();
+const laser = new Audio();
 let killNumber = document.querySelector('#killNumber');
 let killText = document.querySelector('#killText');
 let orbZindex;
@@ -50,11 +50,12 @@ class Orb {
             playground.removeChild(this.node);
             killCount++;
             killNumber.textContent = killCount;
-            // playgunShot();
+            playLaser();
         });
 
     }
 }
+
 
 // this one starts the game and maks orbs appear in random intervals from 250ms up to 2s
 startButton.addEventListener('click', () => {
@@ -66,6 +67,7 @@ restartButton.addEventListener('click', () => {
     stopGame();
     startGame();
 })
+
 
 // this function starts the game and produces orbs
 const startGame = function() {
@@ -86,20 +88,17 @@ const stopGame = function () {
     removeAllOrbs();
     clearTimeout(tOrbs);
     clearInterval(levelInterval);
-    // clearTimeout(tGame);
     killCount = 0;
     killNumber.textContent = killCount;
     levelCount = 1;
     levelNumber.textContent = levelCount;
     playground.style.backgroundColor = 'silver';
-    console.clear();
 }
 
 
 // function to remove all orbs
 const removeAllOrbs = function () {
     const allOrbs = Array.from(document.querySelectorAll('.orb'));
-    // console.log(allOrbs);
     allOrbs.forEach(orb => {
         playground.removeChild(orb);
     });
@@ -123,12 +122,9 @@ const advanceLevel = function() {
         let levelDiv = document.createElement('div');
         levelDiv.classList.add('levelDiv');
         levelDiv.style.backgroundColor = randomBgColor;
-        // levelDiv.style.height = `${makeRandomlHeight()}%`;
         levelDiv.style.height = `${divHeight}%`;
         levelDiv.style.zIndex = divZindex;
         playground.appendChild(levelDiv);
-        console.log('DIV Height= ' + divHeight);
-        console.log('Div Z-index= ' + divZindex);
         levelCount++;
         divZindex--;
         divHeight += 10;
@@ -138,9 +134,9 @@ const advanceLevel = function() {
 }
 
 // this function plays the gunshot sound on click
-const playgunShot = function() {
-    gunShot.src = 'audio/shotgun.wav'
-    gunShot.play();
+const playLaser = function() {
+    laser.src = 'audio/laser.mp3'
+    laser.play();
 }
 
 const randomColor = function() {

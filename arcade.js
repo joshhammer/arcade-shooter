@@ -17,8 +17,8 @@ let orbIntervalTime = 2000;
 
 class Orb {
 
-    constructor(name = 'TurboOrb'){
-        this.name = name
+    constructor(hp = hpSelector()){
+        this.hp = hp;
         this.spawnOrb();
         this.deleteOrb();
         this.onHit();
@@ -29,15 +29,18 @@ class Orb {
         this.node.classList.add('orb');
         this.node.classList.add('orb::after');
         this.node.style.zIndex = randomOrbZindex();
-        console.log('Orb z-Index= ' + orbZindex);
+        if(this.hp > 25){
+            this.node.setAttribute('id', 'highHP');
+        }
         playground.appendChild(this.node);
+        console.log(this.hp);
         orbs.push(Orb);
     }
 
     deleteOrb() {
         this.node.addEventListener('animationend', (event) => {
             // console.log(event)
-            if (event.animationName == 'xAxis'){
+            if (event.animationName == 'xAxis' || event.animationName == 'diffxAxis'){
                 // console.log(event.animationName);
                 playground.removeChild(this.node);
                 orbs.pop();
@@ -47,12 +50,14 @@ class Orb {
 
     onHit() {
         this.node.addEventListener('click', () => {
-            playground.removeChild(this.node);
-            killCount++;
-            killNumber.textContent = killCount;
             playLaser();
+            this.hp -= 25;
+            if(this.hp <= 0) {
+                playground.removeChild(this.node);
+                killCount++;
+                killNumber.textContent = killCount;
+            }
         });
-
     }
 }
 
@@ -77,7 +82,7 @@ const startGame = function() {
 
 // this function solely produces Orbs in a certain interval
 const produceOrbs = function () {
-    let random = Math.floor(Math.random() * orbIntervalTime + 50)
+    let random = Math.floor(Math.random() * orbIntervalTime + 500)
     new Orb();
     tOrbs = setTimeout(produceOrbs, random);
 }
@@ -128,7 +133,7 @@ const advanceLevel = function() {
         levelCount++;
         divZindex--;
         divHeight += 10;
-        orbIntervalTime -= 200;
+        // orbIntervalTime -= 200;
         levelNumber.textContent = levelCount;
     }
 }
@@ -147,6 +152,16 @@ const randomColor = function() {
 }
 
 const randomOrbZindex = function() {
-    orbZindex = Math.floor(Math.random() *20);
+    orbZindex = Math.floor(Math.random() *15);
     return orbZindex;
+}
+
+const hpSelector = function(){
+    const zeroOne = Math.floor(Math.random() * 2);
+    if(zeroOne > 0){
+        return 50;
+    }
+    else {
+        return 25;
+    }
 }

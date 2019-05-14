@@ -4,6 +4,7 @@ const spawnButton = document.querySelector('#spawnBtn');
 const restartButton = document.querySelector('#restartBtn');
 const startButton = document.querySelector('#startBtn');
 const levelNumber = document.querySelector('#levelNumber');
+const congratsMsg = document.querySelector('#congratsMsg');
 const orbs = [];
 const laser = new Audio();
 let killNumber = document.querySelector('#killNumber');
@@ -13,7 +14,6 @@ let divZindex = 10;
 let divHeight = 10;
 let killCount = 0;
 let levelCount = 1;
-let orbIntervalTime = 2000;
 
 class Orb {
 
@@ -54,10 +54,14 @@ class Orb {
             this.hp -= 25;
             if(this.hp <= 0) {
                 playground.removeChild(this.node);
-                killCount++;
+                 killCount++;
                 killNumber.textContent = killCount;
+                if (killCount != 0 && killCount % 10 == 0) {
+                    advanceLevel();
+                }
             }
         });
+
     }
 }
 
@@ -76,13 +80,14 @@ restartButton.addEventListener('click', () => {
 
 // this function starts the game and produces orbs
 const startGame = function() {
+    congratsMsg.style.display = 'none';
     produceOrbs();
     levelInterval = setInterval(advanceLevel, 10000);
 }
 
 // this function solely produces Orbs in a certain interval
 const produceOrbs = function () {
-    let random = Math.floor(Math.random() * orbIntervalTime + 500)
+    let random = Math.floor(Math.random() * 1500 + 500)
     new Orb();
     tOrbs = setTimeout(produceOrbs, random);
 }
@@ -98,6 +103,8 @@ const stopGame = function () {
     levelCount = 1;
     levelNumber.textContent = levelCount;
     playground.style.backgroundColor = 'silver';
+    divZindex = 10;
+    divHeight = 10;
 }
 
 
@@ -110,6 +117,7 @@ const removeAllOrbs = function () {
     orbs.length = 0;
 }
 
+// function to remove all level layers
 const removeLevels = function() {
     const allLevels = Array.from(document.querySelectorAll('.levelDiv'));
     allLevels.forEach(level => {
@@ -121,6 +129,7 @@ const removeLevels = function() {
 const advanceLevel = function() {
     if(levelCount >= 10){
         stopGame();
+        congratsMsg.style.display = 'block';
     }
     else {
         let randomBgColor = randomColor();
@@ -133,7 +142,6 @@ const advanceLevel = function() {
         levelCount++;
         divZindex--;
         divHeight += 10;
-        // orbIntervalTime -= 200;
         levelNumber.textContent = levelCount;
     }
 }

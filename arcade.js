@@ -1,20 +1,24 @@
 
 const playground = document.querySelector('#playground');
 const spawnButton = document.querySelector('#spawnBtn');
-const restartButton = document.querySelector('#restartBtn');
 const startButton = document.querySelector('#startBtn');
+const stopButton = document.querySelector('#stopBtn');
+const restartButton = document.querySelector('#restartBtn');
 const levelNumber = document.querySelector('#levelNumber');
 const congratsMsg = document.querySelector('#congratsMsg');
-const orbs = [];
-const laser = new Audio();
 let killNumber = document.querySelector('#killNumber');
 let killText = document.querySelector('#killText');
+
+const orbs = [];
+const laser = new Audio();
+
 let orbZindex;
 let divZindex = 10;
 let divHeight = 10;
 let killCount = 0;
 let levelCount = 1;
 
+// This is the class that every Orb is an instance of
 class Orb {
 
     constructor(hp = hpSelector()){
@@ -33,15 +37,12 @@ class Orb {
             this.node.setAttribute('id', 'highHP');
         }
         playground.appendChild(this.node);
-        console.log(this.hp);
         orbs.push(Orb);
     }
 
     deleteOrb() {
         this.node.addEventListener('animationend', (event) => {
-            // console.log(event)
             if (event.animationName == 'xAxis' || event.animationName == 'diffxAxis'){
-                // console.log(event.animationName);
                 playground.removeChild(this.node);
                 orbs.pop();
             }
@@ -56,7 +57,10 @@ class Orb {
                 playground.removeChild(this.node);
                  killCount++;
                 killNumber.textContent = killCount;
-                if (killCount != 0 && killCount % 10 == 0) {
+                // if (killCount != 0 && killCount % 10 == 0) {
+                //     advanceLevel();
+                // }
+                if(killCount > 1){
                     advanceLevel();
                 }
             }
@@ -69,20 +73,23 @@ class Orb {
 // this one starts the game and maks orbs appear in random intervals from 250ms up to 2s
 startButton.addEventListener('click', () => {
     startGame();
-})
+    startButton.style.visibility = 'hidden';
+});
+
+stopButton.addEventListener('click', () => {
+    stopGame();
+});
 
 // this button restarts the game
 restartButton.addEventListener('click', () => {
-    stopGame();
+    resetGame();
     startGame();
-})
+});
 
 
 // this function starts the game and produces orbs
 const startGame = function() {
-    congratsMsg.style.display = 'none';
     produceOrbs();
-    levelInterval = setInterval(advanceLevel, 10000);
 }
 
 // this function solely produces Orbs in a certain interval
@@ -93,18 +100,17 @@ const produceOrbs = function () {
 }
 
 // this function currently stops the game entirely and clears all orbs
-const stopGame = function () {
-    removeLevels();
-    removeAllOrbs();
+const resetGame = function () {
     clearTimeout(tOrbs);
-    clearInterval(levelInterval);
-    killCount = 0;
-    killNumber.textContent = killCount;
-    levelCount = 1;
-    levelNumber.textContent = levelCount;
+    removeAllOrbs();
+    removeLevels();
+    resetCounters();
     playground.style.backgroundColor = 'silver';
-    divZindex = 10;
-    divHeight = 10;
+}
+
+const stopGame = function() {
+    clearTimeout(tOrbs);
+    removeAllOrbs();
 }
 
 
@@ -129,7 +135,6 @@ const removeLevels = function() {
 const advanceLevel = function() {
     if(levelCount >= 10){
         stopGame();
-        congratsMsg.style.display = 'block';
     }
     else {
         let randomBgColor = randomColor();
@@ -146,12 +151,16 @@ const advanceLevel = function() {
     }
 }
 
-// this function plays the gunshot sound on click
-const playLaser = function() {
-    laser.src = 'audio/laser.mp3'
-    laser.play();
+const resetCounters = function(){
+    killCount = 0;
+    levelCount = 1;
+    divZindex = 10;
+    divHeight = 10;
+    killNumber.textContent = killCount;
+    levelNumber.textContent = levelCount;
 }
 
+// This function creates a random color for each new level
 const randomColor = function() {
     const redValue = Math.floor(Math.random() * 256);
     const greenValue = Math.floor(Math.random() * 256);
@@ -159,11 +168,13 @@ const randomColor = function() {
     return "rgb(" + redValue + ", " + greenValue + ", " + blueValue + ")";
 }
 
+// creates a random z-index between 0 and 15 for every Orb
 const randomOrbZindex = function() {
     orbZindex = Math.floor(Math.random() *15);
     return orbZindex;
 }
 
+// determines whether an Orb has 25 or 50 HP
 const hpSelector = function(){
     const zeroOne = Math.floor(Math.random() * 2);
     if(zeroOne > 0){
@@ -172,4 +183,10 @@ const hpSelector = function(){
     else {
         return 25;
     }
+}
+
+// this function plays the gunshot sound on click
+const playLaser = function () {
+    laser.src = 'audio/laser.mp3'
+    laser.play();
 }

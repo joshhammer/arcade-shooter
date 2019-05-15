@@ -1,7 +1,7 @@
 
 const playground = document.querySelector('#playground');
 const spawnButton = document.querySelector('#spawnBtn');
-const startButton = document.querySelector('#startBtn');
+startButton = document.querySelector('#startBtn');
 const stopButton = document.querySelector('#stopBtn');
 const restartButton = document.querySelector('#restartBtn');
 const levelNumber = document.querySelector('#levelNumber');

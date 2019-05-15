@@ -5,7 +5,7 @@ const startButton = document.querySelector('#startBtn');
 const stopButton = document.querySelector('#stopBtn');
 const restartButton = document.querySelector('#restartBtn');
 const levelNumber = document.querySelector('#levelNumber');
-const congratsMsg = document.querySelector('#congratsMsg');
+const congratsH1 = document.querySelector('h1');
 let killNumber = document.querySelector('#killNumber');
 let killText = document.querySelector('#killText');
 
@@ -51,7 +51,7 @@ class Orb {
 
     onHit() {
         this.node.addEventListener('click', () => {
-            playLaser();
+            // playLaser();
             this.hp -= 25;
             if(this.hp <= 0) {
                 playground.removeChild(this.node);
@@ -99,18 +99,23 @@ const produceOrbs = function () {
     tOrbs = setTimeout(produceOrbs, random);
 }
 
-// this function currently stops the game entirely and clears all orbs
+
 const resetGame = function () {
-    clearTimeout(tOrbs);
-    removeAllOrbs();
+    stopGame();
     removeLevels();
     resetCounters();
-    playground.style.backgroundColor = 'silver';
+    congratsH1.classList.remove('congratsMsg');
 }
 
 const stopGame = function() {
     clearTimeout(tOrbs);
     removeAllOrbs();
+}
+
+const concludeGame = function() {
+    stopGame();
+    console.log(congratsH1);
+    congratsH1.classList.add('congratsMsg');
 }
 
 
@@ -133,24 +138,26 @@ const removeLevels = function() {
 
 // function to create a new level
 const advanceLevel = function() {
-    if(levelCount >= 10){
-        stopGame();
+    if (levelCount >= 10) {
+        concludeGame();
     }
     else {
-        let randomBgColor = randomColor();
-        let levelDiv = document.createElement('div');
-        levelDiv.classList.add('levelDiv');
-        levelDiv.style.backgroundColor = randomBgColor;
-        levelDiv.style.height = `${divHeight}%`;
-        levelDiv.style.zIndex = divZindex;
-        playground.appendChild(levelDiv);
-        levelCount++;
-        divZindex--;
-        divHeight += 10;
-        levelNumber.textContent = levelCount;
+    let randomBgColor = randomColor();
+    const levelDiv = document.createElement('div');
+    levelDiv.classList.add('levelDiv');
+    levelDiv.style.backgroundColor = randomBgColor;
+    levelDiv.style.height = `${divHeight}%`;
+    levelDiv.style.zIndex = divZindex;
+    playground.appendChild(levelDiv);
+    levelCount++;
+    divZindex--;
+    divHeight += 10;
+    levelNumber.textContent = levelCount;
     }
+
 }
 
+// resets all counters and text fiels in the game
 const resetCounters = function(){
     killCount = 0;
     levelCount = 1;

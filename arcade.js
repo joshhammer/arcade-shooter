@@ -1,10 +1,11 @@
+
 const playground = document.querySelector('#playground');
 const spawnButton = document.querySelector('#spawnBtn');
 const startButton = document.querySelector('#startBtn');
 const stopButton = document.querySelector('#stopBtn');
 const restartButton = document.querySelector('#restartBtn');
 const levelNumber = document.querySelector('#levelNumber');
-const congratsH1 = document.querySelector('h1');
+const congratsMsg = document.querySelector('#congratsMsg');
 let killNumber = document.querySelector('#killNumber');
 let killText = document.querySelector('#killText');
 
@@ -50,7 +51,7 @@ class Orb {
 
     onHit() {
         this.node.addEventListener('click', () => {
-            // playLaser();
+            playLaser();
             this.hp -= 25;
             if (this.hp <= 0) {
                 playground.removeChild(this.node);
@@ -72,6 +73,7 @@ class Orb {
 // this one starts the game and maks orbs appear in random intervals from 250ms up to 2s
 startButton.addEventListener('click', () => {
     startGame();
+    startButton.style.visibility = 'hidden';
 });
 
 stopButton.addEventListener('click', () => {
@@ -97,30 +99,31 @@ const produceOrbs = function () {
     tOrbs = setTimeout(produceOrbs, random);
 }
 
-
+// this function currently stops the game entirely and clears all orbs
 const resetGame = function () {
-    stopGame();
+    clearTimeout(tOrbs);
+    removeAllOrbs();
     removeLevels();
     resetCounters();
-    congratsH1.classList.remove('congratsMsg');
+    playground.style.backgroundColor = 'silver';
 }
 
 const stopGame = function () {
     clearTimeout(tOrbs);
-    GameRemoveAllOrbs();
-}
-
-const concludeGame = function () {
-    stopGame();
-
+    removeAllOrbs();
 }
 
 
-const GameRemoveAllOrbs = function () {
+// function to remove all orbs
+const removeAllOrbs = function () {
+    const allOrbs = Array.from(document.querySelectorAll('.orb'));
+    allOrbs.forEach(orb => {
+        playground.removeChild(orb);
+    });
     orbs.length = 0;
 }
 
-
+// function to remove all level layers
 const removeLevels = function () {
     const allLevels = Array.from(document.querySelectorAll('.levelDiv'));
     allLevels.forEach(level => {
@@ -128,14 +131,14 @@ const removeLevels = function () {
     });
 }
 
-
+// function to create a new level
 const advanceLevel = function () {
     if (levelCount >= 10) {
-        concludeGame();
+        stopGame();
     }
     else {
         let randomBgColor = randomColor();
-        const levelDiv = document.createElement('div');
+        let levelDiv = document.createElement('div');
         levelDiv.classList.add('levelDiv');
         levelDiv.style.backgroundColor = randomBgColor;
         levelDiv.style.height = `${divHeight}%`;
@@ -146,10 +149,8 @@ const advanceLevel = function () {
         divHeight += 10;
         levelNumber.textContent = levelCount;
     }
-
 }
 
-// resets all counters and text fiels in the game
 const resetCounters = function () {
     killCount = 0;
     levelCount = 1;

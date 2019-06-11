@@ -1,6 +1,5 @@
 
 const playground = document.querySelector('#playground');
-const spawnButton = document.querySelector('#spawnBtn');
 const startButton = document.querySelector('#startBtn');
 const stopButton = document.querySelector('#stopBtn');
 const restartButton = document.querySelector('#restartBtn');
@@ -57,9 +56,6 @@ class Orb {
                 playground.removeChild(this.node);
                 killCount++;
                 killNumber.textContent = killCount;
-                // if (killCount != 0 && killCount % 10 == 0) {
-                //     advanceLevel();
-                // }
                 if (killCount > 1) {
                     advanceLevel();
                 }

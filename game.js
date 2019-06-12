@@ -1,6 +1,8 @@
 
 import { Orb } from './Orb.js'
 
+let timeBetweenOrbs;
+
 const init = () => {
     addEventListenersToButtons()
 }
@@ -19,7 +21,7 @@ const setHitCount = (count) => {
     killNumberText.textContent = killCount;
 }
 
-const addEventListenersToButtons = function() {
+const addEventListenersToButtons = () => {
     const gameStartButton = document.querySelector('#startBtn');
     const gameRestartButton = document.querySelector('#restartBtn');
 
@@ -45,10 +47,10 @@ const gameReset = function() {
 
 const produceOrbs = function() {
     new Orb(playground);
-    setTimeout(produceOrbs, 1000)
+    timeBetweenOrbs = setTimeout(produceOrbs, 1000)
 }
 
 
 init();
 
-export { increaseHitCount, playground }
+export { increaseHitCount }

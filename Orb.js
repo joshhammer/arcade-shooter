@@ -4,36 +4,38 @@ export class Orb {
     constructor(playground) {
         this.playground = playground
         this.node = document.createElement('div');
-        this.attachEventHandlers()
+        this.attachEventHandlers();
+        this.spawnOrb();
     }
 
     attachEventHandlers() {
 
         this.node.addEventListener('animationend', (event) => {
             if (event.animationName == 'xAxis' || event.animationName == 'diffxAxis') {
-                deleteOrb()
+                this.deleteOrb();
             }
         });
 
         this.node.addEventListener('click', () => {
-            hitOrb()
+            this.hitOrb()
         })
     }
 
     spawnOrb() {
-        this.node = document.createElement('div');
+        // this.node = document.createElement('div');
         this.node.classList.add('orb');
-        this.node.classList.add('orb::after');
+        // this.node.classList.add('orb::after');
         this.playground.appendChild(this.node);
     }
 
+    // funktioniert nicht
     deleteOrb() {
         this.playground.removeChild(this.node);
     }
 
     hitOrb() {
         this.playLaser();
-        deleteOrb();
+        this.deleteOrb();
         increaseHitCount();
     }
 

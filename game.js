@@ -1,72 +1,54 @@
-const gameStartButton = document.querySelector('#startBtn');
-const gameRestartButton = document.querySelector('#restartBtn');
 
-let orbs = [];
-let killCounter = 0;
-let levelCounter = 1;
+import { Orb } from './Orb.js'
 
-class gameOrb {
+const init = () => {
+    addEventListenersToButtons()
+}
 
-    constructor(){
+const playground = document.querySelector('#playground');
+const killNumberText = document.querySelector('#killNumber');
+let killCount = 0;
 
-        this.gameSpawnOrb();
-        this.gameDeleteOrb();
-        this.gameOnHit();
-    }
+const increaseHitCount = () => {
+    killCount++;
+    killNumberText.textContent = killCount;
+}
 
-    gameSpawnOrb() {
-        orbs.push(gameOrb);
-    }
+const setHitCount = (count) => {
+    killCount = count;
+    killNumberText.textContent = killCount;
+}
 
-    gameDeleteOrb() {
-        this.node.addEventListener('animationend', (event) => {
-            if (event.animationName == 'xAxis' || event.animationName == 'diffxAxis') {
-                orbs.pop();
-            }
-        });
-    }
+const addEventListenersToButtons = function() {
+    const gameStartButton = document.querySelector('#startBtn');
+    const gameRestartButton = document.querySelector('#restartBtn');
 
-    gameOnHit() {
-        this.node.addEventListener('click', () => {
-            killCounter++;
-            killNumber.textContent = killCounter;
+    gameStartButton.addEventListener('click', () => {
+        gameStart();
+    });
 
-        });
-    }
-
+    gameRestartButton.addEventListener('click', () => {
+        gameReset();
+        gameStart();
+    });
 }
 
 
-gameStartButton.addEventListener('click', () => {
-    gameStart();
-});
-
-gameRestartButton.addEventListener('click', () => {
-    gameReset();
-    gameStart();
-});
-
-const gameStart = function(){
-    new gameOrb();
-    tOrbs = setTimeout(gameStart, 1000);
+const gameStart = function() {
+    produceOrbs();
 }
 
-const gameStop = function(){
-    clearTimeout(tOrbs);
+const gameReset = function() {
+    setHitCount(0);
 }
 
-const gameReset = function(){
-    clearTimeout(tOrbs);
-    killCounter = 0;
-    levelCounter = 1;
-    orbs.length = 0;
+
+const produceOrbs = function() {
+    new Orb(playground);
+    setTimeout(produceOrbs, 1000)
 }
 
-// const gameAdvanceLevel = function () {
-//     if (levelCount >= 10) {
-//         gameStop();
-//     }
-//     else {
-//         levelCounter++;
-//     }
-// }
+
+init();
+
+export { increaseHitCount, playground }

@@ -59,7 +59,7 @@ button:active {
 h3 {
     display: inline-block;
     color: red;
-    text-shadow: 2px 2px 2px darkred;
+    text-shadow: 2px 2px 0px rgb(0, 0, 0);
     font-size: 2rem;
 }
 
@@ -78,7 +78,7 @@ h3 {
 }
 
 
-.levelDiv {
+.newLevel {
     position: absolute;
     bottom: 0px;
     left: 0px;
@@ -90,17 +90,6 @@ h3 {
 
 h1 {display: none;}
 
-.congratsMsg {
-    display: block;
-    position: relative;
-    margin-top: 15rem;
-    text-align: center;
-    font-size: 4rem;
-    text-transform: uppercase;
-    color: yellow;
-    z-index: 20;
-    animation: blink 1s step-start 0s infinite;
-}
 
 .orb {
     position: absolute;

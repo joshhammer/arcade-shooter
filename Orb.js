@@ -2,7 +2,7 @@ import { increaseHitCount } from './game.js'
 
 export class Orb {
     constructor(playground) {
-        this.playground = playground
+        this.playground = playground;
         this.node = document.createElement('div');
         this.attachEventHandlers();
         this.spawnOrb();
@@ -46,12 +46,4 @@ export class Orb {
     }
 }
 
-
-
-// const removeAllOrbs = function () {
-//     const allOrbs = Array.from(document.querySelectorAll('.orb'));
-//     allOrbs.forEach(orb => {
-//         playground.removeChild(orb);
-//     });
-// }
 

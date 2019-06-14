@@ -3,8 +3,10 @@ import { Orb } from './Orb.js'
 import { Level } from './Level.js';
 
 const playground = document.querySelector('#playground');
-const killNumberText = document.querySelector('#killNumber');
+const killNumberText = document.querySelector('#killNumberText');
+const levelNumberText = document.querySelector('#levelNumberText');
 let killCount = 0;
+let levelCount = 1;
 let timeBetweenOrbs;
 let timeBetweenNewLevel;
 
@@ -16,6 +18,11 @@ const init = () => {
 const increaseHitCount = () => {
     killCount++;
     killNumberText.textContent = killCount;
+}
+
+const increaseLevelCount = () => {
+    levelCount++;
+    levelNumberText.textContent = levelCount;
 }
 
 const setHitCount = (count) => {
@@ -45,7 +52,7 @@ const addEventListenersToButtons = () => {
 
 const gameStart = function() {
     produceOrbs();
-    timeBetweenNewLevel = setInterval(advanceOneLevel, 10000)
+    timeBetweenNewLevel = setInterval(advanceOneLevel, 5000)
 }
 
 const gameStop = function() {
@@ -73,6 +80,7 @@ const removeOrbsFromPlayground = function() {
 
 const advanceOneLevel = function() {
     new Level(playground);
+    increaseLevelCount();
 }
 
 

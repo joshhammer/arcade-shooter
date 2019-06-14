@@ -3,6 +3,10 @@
 export class Level {
     constructor(playground) {
         this.playground = playground;
+        this.createLevel();
+    }
+
+    createLevel() {
         this.node = document.createElement('div');
         this.node.classList.add('newLevel');
         this.node.style.backgroundColor = generateRandomLevelBackground();

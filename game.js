@@ -9,6 +9,7 @@ let killCount = 0;
 let levelCount = 1;
 let timeBetweenOrbs;
 let timeBetweenNewLevel;
+let gameOverMessage;
 
 
 const init = () => {
@@ -57,7 +58,7 @@ const addEventListenersToButtons = () => {
 
 const gameStart = function() {
     produceOrbs();
-    timeBetweenNewLevel = setInterval(advanceOneLevel, 5000)
+    timeBetweenNewLevel = setInterval(advanceOneLevel, 1000)
 }
 
 const gameStop = function() {
@@ -73,6 +74,10 @@ const gameReset = function() {
     removeAllLevels();
     setHitCount(0);
     setLevelCount(0);
+    console.log(gameOverMessage);
+    if(gameOverMessage){
+        removeGameOverMessage();
+    }
 }
 
 const produceOrbs = function() {
@@ -108,6 +113,19 @@ const checkIfGameIsOver = function() {
 
 const concludeGame = function() {
     gameStop();
+    displayGameOverMessage();
+}
+
+const displayGameOverMessage = function() {
+    gameOverMessage = document.createElement('h1');
+    gameOverMessage.classList.add('gameOverText')
+    gameOverMessage.textContent = 'GAME OVER';
+    playground.appendChild(gameOverMessage);
+}
+
+const removeGameOverMessage = function() {
+    playground.removeChild(gameOverMessage);
+    gameOverMessage = undefined;
 }
 
 

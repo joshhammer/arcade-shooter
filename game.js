@@ -90,6 +90,7 @@ const removeOrbsFromPlayground = function() {
 const advanceOneLevel = function() {
     new Level(playground);
     increaseLevelCount();
+    checkIfGameIsOver();
 }
 
 const removeAllLevels = function () {
@@ -99,6 +100,15 @@ const removeAllLevels = function () {
     });
 }
 
+const checkIfGameIsOver = function() {
+    if (levelCount >= 10){
+        concludeGame();
+    }
+}
+
+const concludeGame = function() {
+    gameStop();
+}
 
 
 

@@ -1,5 +1,6 @@
 let LevelHeight = 10;
 let randomLevelPosition;
+let levelZindex;
 
 export class Level {
     constructor(playground) {
@@ -11,16 +12,24 @@ export class Level {
         this.node = document.createElement('div');
         this.node.classList.add('newLevel');
         this.node.style.backgroundColor = generateRandomLevelBackground();
-        this.generateRandomLevelHeight();
-        console.log(LevelHeight);
-        console.log(randomLevelPosition);
+        this.addLevelHeight();
+        this.generateRandomLevelPosition();
+        this.generateLevelZindex();
         this.playground.appendChild(this.node);
     }
 
-    generateRandomLevelHeight() {
+    addLevelHeight() {
         this.node.style.height = `${LevelHeight}%`;
-        randomLevelPosition = Math.floor(Math.random() * 90)
+    }
+    
+    generateRandomLevelPosition() {
+        randomLevelPosition = Math.floor(Math.random() * 90);
         this.node.style.bottom = `${randomLevelPosition}%`;
+    }
+
+    generateLevelZindex() {
+        levelZindex = Math.floor(Math.random() * 10);
+        this.node.style.zIndex = levelZindex;
     }
 
 

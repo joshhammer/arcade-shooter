@@ -39,11 +39,15 @@ export class Orb {
         increaseHitCount();
     }
 
+
+
     playLaser() {
         const laser = new Audio();
         laser.src = 'audio/laser.mp3'
         laser.play();
     }
 }
+
+// export { increaseOrbSpeed }
 
 

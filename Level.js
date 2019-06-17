@@ -12,7 +12,10 @@ export class Level {
         this.node.style.backgroundColor = generateRandomLevelBackground();
         this.playground.appendChild(this.node);
     }
+
+
 }
+
 
 const generateRandomLevelBackground = function (){
         const redValue = Math.floor(Math.random() * 256);

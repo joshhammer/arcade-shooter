@@ -30,6 +30,11 @@ const setHitCount = (count) => {
     killNumberText.textContent = killCount;
 }
 
+const setLevelCount = (count) => {
+    levelCount = count;
+    levelNumberText.textContent = levelCount;
+}
+
 const addEventListenersToButtons = () => {
     const gameStartButton = document.querySelector('#startBtn');
     const gameStopButton = document.querySelector('#stopBtn')
@@ -58,12 +63,16 @@ const gameStart = function() {
 const gameStop = function() {
     clearTimeout(timeBetweenOrbs);
     removeOrbsFromPlayground();
+    clearInterval(timeBetweenNewLevel);
 }
 
 const gameReset = function() {
     clearTimeout(timeBetweenOrbs);
     removeOrbsFromPlayground();
+    clearInterval(timeBetweenNewLevel);
+    removeAllLevels();
     setHitCount(0);
+    setLevelCount(0);
 }
 
 const produceOrbs = function() {
@@ -82,6 +91,15 @@ const advanceOneLevel = function() {
     new Level(playground);
     increaseLevelCount();
 }
+
+const removeAllLevels = function () {
+    const allLevels = Array.from(document.querySelectorAll('.newLevel'));
+    allLevels.forEach(level => {
+        playground.removeChild(level);
+    });
+}
+
+
 
 
 init();

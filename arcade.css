@@ -80,11 +80,11 @@ h3 {
 
 .newLevel {
     position: absolute;
-    bottom: 0px;
+    /* bottom: 0px; */
     left: 0px;
     overflow: hidden;
     width: 100%;
-    height: 50%;
+    /* height: 50%; */
     margin: 0 auto;
 }
 

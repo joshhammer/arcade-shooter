@@ -56,9 +56,6 @@ class Orb {
                 playground.removeChild(this.node);
                 killCount++;
                 killNumber.textContent = killCount;
-                if (killCount > 1) {
-                    advanceLevel();
-                }
             }
         });
 

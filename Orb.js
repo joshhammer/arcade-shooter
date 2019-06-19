@@ -1,9 +1,11 @@
 import { increaseHitCount } from './game.js'
 
 export class Orb {
-    constructor(playground) {
+    constructor(playground, hp = this.amountOfHP()) {
         this.playground = playground;
         this.node = document.createElement('div');
+        this.hp = hp;
+        this.setHighHpOrbClass();
         this.attachEventHandlers();
         this.spawnOrb();
     }
@@ -22,24 +24,38 @@ export class Orb {
     }
 
     spawnOrb() {
-        // this.node = document.createElement('div');
         this.node.classList.add('orb');
-        // this.node.classList.add('orb::after');
         this.playground.appendChild(this.node);
     }
 
-    // funktioniert nicht
     deleteOrb() {
         this.playground.removeChild(this.node);
     }
 
     hitOrb() {
         this.playLaser();
-        this.deleteOrb();
-        increaseHitCount();
+        this.hp -= 25;
+        if (this.hp <= 0) {
+            increaseHitCount();
+            this.deleteOrb();
+        }
     }
 
+    amountOfHP() {
+        const zeroOrOne = Math.floor(Math.random() * 2);
+        if (zeroOrOne > 0) {
+            return 50;
+        }
+        else {
+            return 25;
+        }
+    }
 
+    setHighHpOrbClass() {
+        if (this.hp > 25) {
+            this.node.setAttribute('id', 'highHP');
+        }
+    }
 
     playLaser() {
         const laser = new Audio();

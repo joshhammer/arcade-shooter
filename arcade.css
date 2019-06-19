@@ -93,13 +93,13 @@ h3 {
 .orb {
     position: absolute;
     top: 0px;
-    left: -30px;
+    left: -50px;
     display: inline-block;
     width: 0px;
     height: 0px;
     /* border: 1px solid black; */
     animation-name: xAxis;
-    animation-duration: 15s;
+    animation-duration: 18s;
     animation-timing-function: linear;
 }
 
@@ -112,20 +112,20 @@ h3 {
     box-shadow: 0px 0px 10px 3px rgb(255, 123, 0);
     border-radius: 50%;
     animation-name: yAxis;
-    animation-duration: 15s;
+    animation-duration: 18s;
     animation-timing-function: ease-in-out;
 }
 
 .highHP {
     position: absolute;
     top: 0px;
-    left: -30px;
+    left: -50px;
     display: inline-block;
     width: 0px;
     height: 0px;
     /* border: 1px solid black; */
     animation-name: diffxAxis;
-    animation-duration: 10s;
+    animation-duration: 15s;
     animation-timing-function: linear;
 }
 
@@ -138,8 +138,8 @@ h3 {
     box-shadow: 0px 0px 10px 3px rgb(255, 238, 0);
     border-radius: 50%;
     animation-name: diffyAxis;
-    animation-duration: 10s;
-    animation-timing-function: ease-in-out;
+    animation-duration: 15s;
+    animation-timing-function: linear;
 }
 
 .gameOverText {
@@ -178,13 +178,13 @@ h3 {
 
 @keyframes yAxis {
     25% {transform: translateY(620px);}
-    50% {transform: translateY(0px);}
+    50% {transform: translateY(-100px);}
     75% {transform: translateY(620px);}
-    100% {transform: translateY(0px);}
+    100% {transform: translateY(-100px);}
 }
 
 @keyframes diffxAxis {
-    25% {transform: translateX(100px);}
+    25% {transform: translateX(200px);}
     50% {transform: translateX(300px);}
     75% {transform: translateX(650px);}
     100% {transform: translateX(825px);}
@@ -193,9 +193,9 @@ h3 {
 
 @keyframes diffyAxis {
     25% {transform: translateY(620px);}
-    50% {transform: translateY(0px);}
+    50% {transform: translateY(-100px);}
     75% {transform: translateY(620px);}
-    100% {transform: translateY(0px);}
+    100% {transform: translateY(-100px);}
 }
 
 @keyframes blink {

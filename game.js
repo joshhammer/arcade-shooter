@@ -82,7 +82,7 @@ const gameReset = function() {
 
 const produceOrbs = function() {
     new Orb(playground);
-    timeBetweenOrbs = setTimeout(produceOrbs, 1000)
+    timeBetweenOrbs = setTimeout(produceOrbs, 1500)
 }
 
 const removeOrbsFromPlayground = function() {

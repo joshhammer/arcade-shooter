@@ -33,13 +33,19 @@ export class Orb {
     }
 
     hitOrb() {
+        console.log(this.node.classList)
         this.playLaser();
         this.hp -= 25;
         if (this.hp <= 0) {
+            // weshalb geht das nicht??
+            if(this.node.classList.contains('highHP')){
+                increaseHitCount();
+            }
             increaseHitCount();
             this.deleteOrb();
         }
     }
+
 
     amountOfHP() {
         const zeroOrOne = Math.floor(Math.random() * 2);
@@ -53,7 +59,7 @@ export class Orb {
 
     setHighHpOrbClass() {
         if (this.hp > 25) {
-            this.node.setAttribute('id', 'highHP');
+            this.node.setAttribute('class', 'highHP');
         }
     }
 

@@ -43,6 +43,7 @@ export class Orb {
 
     playLaser() {
         const laser = new Audio();
+        laser.volume = 0.1;
         laser.src = 'audio/laser.mp3'
         laser.play();
     }

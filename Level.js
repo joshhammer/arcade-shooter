@@ -16,6 +16,7 @@ export class Level {
         this.generateRandomLevelPosition();
         this.generateLevelZindex();
         this.playground.appendChild(this.node);
+        this.playLevelSound();
     }
 
     addLevelHeight() {
@@ -30,6 +31,13 @@ export class Level {
     generateLevelZindex() {
         levelZindex = Math.floor(Math.random() * 10);
         this.node.style.zIndex = levelZindex;
+    }
+
+    playLevelSound() {
+        const levelSound = new Audio();
+        levelSound.volume = 0.2;
+        levelSound.src = 'audio/levelChange.mp3'
+        levelSound.play();
     }
 
 

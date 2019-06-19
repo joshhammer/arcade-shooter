@@ -58,7 +58,7 @@ const addEventListenersToButtons = () => {
 
 const gameStart = function() {
     produceOrbs();
-    timeBetweenNewLevel = setInterval(advanceOneLevel, 1000)
+    timeBetweenNewLevel = setInterval(advanceOneLevel, 5000)
 }
 
 const gameStop = function() {

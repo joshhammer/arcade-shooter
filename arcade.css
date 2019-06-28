@@ -25,7 +25,7 @@ body {
     height: 80%;
     margin: 0 auto;
     border: 5px solid rgb(255, 255, 255);
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 #controls {
@@ -40,9 +40,9 @@ body {
 
 button {
     padding: 4px 20px;
-    background-color: steelblue;
+    background-color: red;
+    color: rgb(255, 254, 203);
     font-size: 1.2rem;
-    color: white;
     border-radius: 5px;
     border: none;
     box-shadow: 2px 2px 4px black;
@@ -99,7 +99,7 @@ h3 {
     height: 0px;
     /* border: 1px solid black; */
     animation-name: xAxis;
-    animation-duration: 18s;
+    animation-duration: 16s;
     animation-timing-function: linear;
 }
 
@@ -112,7 +112,7 @@ h3 {
     box-shadow: 0px 0px 10px 3px rgb(255, 123, 0);
     border-radius: 50%;
     animation-name: yAxis;
-    animation-duration: 18s;
+    animation-duration: 16s;
     animation-timing-function: ease-in-out;
 }
 
@@ -125,8 +125,8 @@ h3 {
     height: 0px;
     /* border: 1px solid black; */
     animation-name: diffxAxis;
-    animation-duration: 15s;
-    animation-timing-function: linear;
+    animation-duration: 14s;
+    animation-timing-function: ease-in-out;
 }
 
 .highHP::after {
@@ -138,8 +138,8 @@ h3 {
     box-shadow: 0px 0px 10px 3px rgb(255, 238, 0);
     border-radius: 50%;
     animation-name: diffyAxis;
-    animation-duration: 15s;
-    animation-timing-function: linear;
+    animation-duration: 14s;
+    animation-timing-function: ease-in-out;
 }
 
 .gameOverText {
@@ -160,13 +160,6 @@ h3 {
   }
 }
 
-/* @keyframes triangle {
-  0% {left: -50px; top: 0%;}
-  25% {left: 25%; top: 100%;}
-  50% {left: 50%; top: 0%;}
-  75% {left: 75%; top: 100%;}
-  100% {left: 100%; top: 0%;}
-} */
 
 @keyframes xAxis {
     25% {transform: translateX(200px);}

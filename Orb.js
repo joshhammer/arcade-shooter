@@ -10,6 +10,25 @@ export class Orb {
         this.spawnOrb();
     }
 
+
+    amountOfHP() {
+        const zeroOrOne = Math.floor(Math.random() * 2);
+        if (zeroOrOne > 0) {
+            return 50;
+        }
+        else {
+            return 25;
+        }
+    }
+
+
+    setHighHpOrbClass() {
+        if (this.hp > 25) {
+            this.node.setAttribute('class', 'highHP');
+        }
+    }
+
+
     attachEventHandlers() {
 
         this.node.addEventListener('animationend', (event) => {
@@ -28,16 +47,12 @@ export class Orb {
         this.playground.appendChild(this.node);
     }
 
-    deleteOrb() {
-        this.playground.removeChild(this.node);
-    }
 
     hitOrb() {
         console.log(this.node.classList)
         this.playLaser();
         this.hp -= 25;
         if (this.hp <= 0) {
-            // weshalb geht das nicht??
             if(this.node.classList.contains('highHP')){
                 increaseHitCount();
             }
@@ -47,21 +62,10 @@ export class Orb {
     }
 
 
-    amountOfHP() {
-        const zeroOrOne = Math.floor(Math.random() * 2);
-        if (zeroOrOne > 0) {
-            return 50;
-        }
-        else {
-            return 25;
-        }
+    deleteOrb() {
+        this.playground.removeChild(this.node);
     }
 
-    setHighHpOrbClass() {
-        if (this.hp > 25) {
-            this.node.setAttribute('class', 'highHP');
-        }
-    }
 
     playLaser() {
         const laser = new Audio();
@@ -70,7 +74,5 @@ export class Orb {
         laser.play();
     }
 }
-
-// export { increaseOrbSpeed }
 
 

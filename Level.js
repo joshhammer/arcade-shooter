@@ -1,4 +1,4 @@
-let LevelHeight = 10;
+const LevelHeight = 10;
 let randomLevelPosition;
 let levelZindex;
 

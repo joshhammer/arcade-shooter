@@ -16,6 +16,25 @@ const init = () => {
     addEventListenersToButtons()
 }
 
+const addEventListenersToButtons = () => {
+    const gameStartButton = document.querySelector('#startBtn');
+    const gameStopButton = document.querySelector('#stopBtn')
+    const gameRestartButton = document.querySelector('#restartBtn');
+
+    gameStartButton.addEventListener('click', () => {
+        gameStart();
+    });
+
+    gameStopButton.addEventListener('click', () => {
+        gameStop();
+    });
+
+    gameRestartButton.addEventListener('click', () => {
+        gameReset();
+        gameStart();
+    });
+}
+
 const increaseHitCount = () => {
     killCount++;
     killNumberText.textContent = killCount;
@@ -34,25 +53,6 @@ const setHitCount = (count) => {
 const setLevelCount = (count) => {
     levelCount = count;
     levelNumberText.textContent = levelCount;
-}
-
-const addEventListenersToButtons = () => {
-    const gameStartButton = document.querySelector('#startBtn');
-    const gameStopButton = document.querySelector('#stopBtn')
-    const gameRestartButton = document.querySelector('#restartBtn');
-
-    gameStartButton.addEventListener('click', () => {
-        gameStart();
-    });
-
-    gameStopButton.addEventListener('click', () => {
-        gameStop();
-    });
-
-    gameRestartButton.addEventListener('click', () => {
-        gameReset();
-        gameStart();
-    });
 }
 
 
@@ -127,7 +127,6 @@ const removeGameOverMessage = function() {
     playground.removeChild(gameOverMessage);
     gameOverMessage = undefined;
 }
-
 
 
 init();

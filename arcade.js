@@ -1,11 +1,10 @@
 
 const playground = document.querySelector('#playground');
-const spawnButton = document.querySelector('#spawnBtn');
 const startButton = document.querySelector('#startBtn');
 const stopButton = document.querySelector('#stopBtn');
 const restartButton = document.querySelector('#restartBtn');
 const levelNumber = document.querySelector('#levelNumber');
-const congratsH1 = document.querySelector('h1');
+const congratsMsg = document.querySelector('#congratsMsg');
 let killNumber = document.querySelector('#killNumber');
 let killText = document.querySelector('#killText');
 
@@ -21,7 +20,7 @@ let levelCount = 1;
 // This is the class that every Orb is an instance of
 class Orb {
 
-    constructor(hp = hpSelector()){
+    constructor(hp = hpSelector()) {
         this.hp = hp;
         this.spawnOrb();
         this.deleteOrb();
@@ -33,7 +32,7 @@ class Orb {
         this.node.classList.add('orb');
         this.node.classList.add('orb::after');
         this.node.style.zIndex = randomOrbZindex();
-        if(this.hp > 25){
+        if (this.hp > 25) {
             this.node.setAttribute('id', 'highHP');
         }
         playground.appendChild(this.node);
@@ -42,7 +41,7 @@ class Orb {
 
     deleteOrb() {
         this.node.addEventListener('animationend', (event) => {
-            if (event.animationName == 'xAxis' || event.animationName == 'diffxAxis'){
+            if (event.animationName == 'xAxis' || event.animationName == 'diffxAxis') {
                 playground.removeChild(this.node);
                 orbs.pop();
             }
@@ -51,18 +50,12 @@ class Orb {
 
     onHit() {
         this.node.addEventListener('click', () => {
-            // playLaser();
+            playLaser();
             this.hp -= 25;
-            if(this.hp <= 0) {
+            if (this.hp <= 0) {
                 playground.removeChild(this.node);
-                 killCount++;
+                killCount++;
                 killNumber.textContent = killCount;
-                // if (killCount != 0 && killCount % 10 == 0) {
-                //     advanceLevel();
-                // }
-                if(killCount > 1){
-                    advanceLevel();
-                }
             }
         });
 
@@ -88,7 +81,7 @@ restartButton.addEventListener('click', () => {
 
 
 // this function starts the game and produces orbs
-const startGame = function() {
+const startGame = function () {
     produceOrbs();
 }
 
@@ -99,23 +92,18 @@ const produceOrbs = function () {
     tOrbs = setTimeout(produceOrbs, random);
 }
 
-
+// this function currently stops the game entirely and clears all orbs
 const resetGame = function () {
-    stopGame();
-    removeLevels();
-    resetCounters();
-    congratsH1.classList.remove('congratsMsg');
-}
-
-const stopGame = function() {
     clearTimeout(tOrbs);
     removeAllOrbs();
+    removeLevels();
+    resetCounters();
+    playground.style.backgroundColor = 'silver';
 }
 
-const concludeGame = function() {
-    stopGame();
-    console.log(congratsH1);
-    congratsH1.classList.add('congratsMsg');
+const stopGame = function () {
+    clearTimeout(tOrbs);
+    removeAllOrbs();
 }
 
 
@@ -129,7 +117,7 @@ const removeAllOrbs = function () {
 }
 
 // function to remove all level layers
-const removeLevels = function() {
+const removeLevels = function () {
     const allLevels = Array.from(document.querySelectorAll('.levelDiv'));
     allLevels.forEach(level => {
         playground.removeChild(level);
@@ -137,28 +125,26 @@ const removeLevels = function() {
 }
 
 // function to create a new level
-const advanceLevel = function() {
+const advanceLevel = function () {
     if (levelCount >= 10) {
-        concludeGame();
+        stopGame();
     }
     else {
-    let randomBgColor = randomColor();
-    const levelDiv = document.createElement('div');
-    levelDiv.classList.add('levelDiv');
-    levelDiv.style.backgroundColor = randomBgColor;
-    levelDiv.style.height = `${divHeight}%`;
-    levelDiv.style.zIndex = divZindex;
-    playground.appendChild(levelDiv);
-    levelCount++;
-    divZindex--;
-    divHeight += 10;
-    levelNumber.textContent = levelCount;
+        let randomBgColor = randomColor();
+        let levelDiv = document.createElement('div');
+        levelDiv.classList.add('levelDiv');
+        levelDiv.style.backgroundColor = randomBgColor;
+        levelDiv.style.height = `${divHeight}%`;
+        levelDiv.style.zIndex = divZindex;
+        playground.appendChild(levelDiv);
+        levelCount++;
+        divZindex--;
+        divHeight += 10;
+        levelNumber.textContent = levelCount;
     }
-
 }
 
-// resets all counters and text fiels in the game
-const resetCounters = function(){
+const resetCounters = function () {
     killCount = 0;
     levelCount = 1;
     divZindex = 10;
@@ -168,7 +154,7 @@ const resetCounters = function(){
 }
 
 // This function creates a random color for each new level
-const randomColor = function() {
+const randomColor = function () {
     const redValue = Math.floor(Math.random() * 256);
     const greenValue = Math.floor(Math.random() * 256);
     const blueValue = Math.floor(Math.random() * 256);
@@ -176,15 +162,15 @@ const randomColor = function() {
 }
 
 // creates a random z-index between 0 and 15 for every Orb
-const randomOrbZindex = function() {
-    orbZindex = Math.floor(Math.random() *15);
+const randomOrbZindex = function () {
+    orbZindex = Math.floor(Math.random() * 15);
     return orbZindex;
 }
 
 // determines whether an Orb has 25 or 50 HP
-const hpSelector = function(){
+const hpSelector = function () {
     const zeroOne = Math.floor(Math.random() * 2);
-    if(zeroOne > 0){
+    if (zeroOne > 0) {
         return 50;
     }
     else {

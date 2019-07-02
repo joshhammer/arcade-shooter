@@ -2,7 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Stylish', sans-serif;
+    /* font-family: 'Stylish', sans-serif; */
+    font-family: 'Courier New', Courier, monospace;
 }
 
 
@@ -12,19 +13,18 @@ html {
 }
 
 body {
-    /* background-color: rgb(21, 0, 80); */
     background-image: url('images/space-background.png');
     background-size: cover;
     height: 100%;
     width: 100%;
-    padding-top: 7rem;
+    /* padding-top: 7rem; */
 }
 
 #container {
     width: 800px;
-    height: 80%;
+    height: 70%;
     margin: 0 auto;
-    border: 5px solid rgb(255, 255, 255);
+    border: 5px solid rgb(46, 46, 46);
     border-radius: 5px;
 }
 
@@ -33,15 +33,28 @@ body {
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
-    height: 10%;
-    background: rgb(255, 255, 255);
+    height: 12%;
+    background: rgb(46, 46, 46);
     border-bottom: 1px solid black;
+}
+
+#gameTitle {
+    font-size: 4rem;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 2rem 0 3rem 0;
+    padding: 0.5rem 0;
+    color: red;
+    text-align: center;
+    text-shadow: 0 0 15px;
+    animation: titleColor 5s infinite linear, borderColor 5s infinite linear;
+    border-top: 1px solid red;
+    border-bottom: 1px solid red;
 }
 
 button {
     padding: 4px 20px;
-    background-color: red;
-    color: rgb(255, 254, 203);
+    background-color: rgb(248, 36, 255);
+    color: black;
     font-size: 1.2rem;
     border-radius: 5px;
     border: none;
@@ -60,16 +73,25 @@ button:active {
 
 h3 {
     display: inline-block;
-    color: red;
+    color: cyan;
     text-shadow: 2px 2px 0px rgb(0, 0, 0);
-    font-size: 2rem;
+    font-size: 1.5rem;
+}
+
+#levelNumberText {
+    display: inline-block;
+    width: 30px;
+}
+#killNumberText {
+    display: inline-block;
+    width: 30px;
 }
 
 #playground {
     position: relative;
     overflow: hidden;
     width: 100%;
-    height: 90%;
+    height: 88%;
     margin: 0 auto;
     /* background: silver; */
     background-image: url('images/space-background.png');
@@ -87,6 +109,7 @@ h3 {
     overflow: hidden;
     width: 100%;
     box-shadow: 0px 2px 3px rgb(80, 80, 80);
+    animation: backgroundColor 10s 1s infinite linear;
 }
 
 
@@ -108,8 +131,8 @@ h3 {
     display: inline-block;
     width: 50px;
     height: 50px;
-    background-color: yellow;
-    box-shadow: 0px 0px 10px 3px rgb(255, 123, 0);
+    background-color: cyan;
+    box-shadow: 0px 0px 10px 2px white;
     border-radius: 50%;
     animation-name: yAxis;
     animation-duration: 16s;
@@ -134,8 +157,8 @@ h3 {
     display: inline-block;
     width: 50px;
     height: 50px;
-    background-color: red;
-    box-shadow: 0px 0px 10px 3px rgb(255, 238, 0);
+    background-color: rgb(248, 36, 255);
+    box-shadow: 0px 0px 10px 2px rgb(209, 209, 209);
     border-radius: 50%;
     animation-name: diffyAxis;
     animation-duration: 14s;
@@ -143,7 +166,6 @@ h3 {
 }
 
 #gameOverText {
-    /* display: none; */
     position: relative;
     text-align: center;
     font-size: 4rem;
@@ -196,3 +218,44 @@ h3 {
     50% {opacity: 0.0}
 }
 
+@keyframes titleColor {
+    0% {color: red}
+    10% {color: orange}
+    20% {color: yellow}
+    30% {color: rgb(0, 255, 0)}
+    40% {color: rgb(0, 183, 255)}
+    50% {color: rgb(235, 0, 235)}
+    60% {color: rgb(0, 183, 255)}
+    70% {color: rgb(0, 255, 0)}
+    80% {color: yellow}
+    90% {color: orange}
+    100% {color: red}
+}
+
+@keyframes borderColor {
+    0% {border-color: red}
+    10% {border-color: orange}
+    20% {border-color: yellow}
+    30% {border-color: rgb(0, 255, 0)}
+    40% {border-color: rgb(0, 183, 255)}
+    50% {border-color: rgb(235, 0, 235)}
+    60% {border-color: rgb(0, 183, 255)}
+    70% {border-color: rgb(0, 255, 0)}
+    80% {border-color: yellow}
+    90% {border-color: orange}
+    100% {border-color: red}
+}
+
+@keyframes backgroundColor {
+    0% {background-color: white}
+    10% {background-color: orange}
+    20% {background-color: yellow}
+    30% {background-color: rgb(0, 255, 0)}
+    40% {background-color: rgb(0, 183, 255)}
+    50% {background-color: rgb(235, 0, 235)}
+    60% {background-color: rgb(0, 183, 255)}
+    70% {background-color: rgb(0, 255, 0)}
+    80% {background-color: yellow}
+    90% {background-color: orange}
+    100% {background-color: red}
+}

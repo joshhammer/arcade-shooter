@@ -6,6 +6,11 @@ const playground = document.querySelector('#playground');
 const killNumberText = document.querySelector('#killNumberText');
 const levelNumberText = document.querySelector('#levelNumberText');
 const gameOverMessage = document.querySelector('#gameOverText');
+const gameStartButton = document.querySelector('#startBtn');
+const gameStopButton = document.querySelector('#stopBtn')
+const gameRestartButton = document.querySelector('#restartBtn');
+const gameTitle = document.querySelector('#gameTitle');
+
 
 let killCount = 0;
 let levelCount = 1;
@@ -14,17 +19,18 @@ let timeBetweenNewLevel;
 
 
 const init = () => {
+    console.log('init...')
     addEventListenersToButtons()
-    gameOverMessage.style.display = 'none';
+    gameOverMessage.style.visibility = 'hidden';
+    gameStartButton.style.visibility = 'visible';
 }
 
+
 const addEventListenersToButtons = () => {
-    const gameStartButton = document.querySelector('#startBtn');
-    const gameStopButton = document.querySelector('#stopBtn')
-    const gameRestartButton = document.querySelector('#restartBtn');
 
     gameStartButton.addEventListener('click', () => {
         gameStart();
+        gameStartButton.style.visibility = 'hidden';
     });
 
     gameStopButton.addEventListener('click', () => {
@@ -57,20 +63,10 @@ const setLevelCount = (count) => {
     levelNumberText.textContent = levelCount;
 }
 
-const displayGameOverMessage = function () {
-    console.log('display GAMEOVER')
-    gameOverMessage.style.display = 'block';
-}
-
-const removeGameOverMessage = function () {
-    console.log('remove GAMEOVER')
-    gameOverMessage.style.display = 'none';
-}
-
 
 const gameStart = function() {
     produceOrbs();
-    timeBetweenNewLevel = setInterval(advanceOneLevel, 1000)
+    timeBetweenNewLevel = setInterval(advanceOneLevel, 10000)
 }
 
 const produceOrbs = function() {
@@ -122,12 +118,20 @@ const checkIfGameIsOver = function() {
     }
 }
 
-
 const concludeGame = function() {
     gameStop();
     displayGameOverMessage();
 }
 
+const displayGameOverMessage = function () {
+    console.log('display GAMEOVER')
+    gameOverMessage.style.visibility = 'visible';
+}
+
+const removeGameOverMessage = function () {
+    console.log('remove GAMEOVER')
+    gameOverMessage.style.visibility = 'hidden';
+}
 
 
 init();

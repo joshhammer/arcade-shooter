@@ -61,6 +61,11 @@ const gameStart = function() {
     timeBetweenNewLevel = setInterval(advanceOneLevel, 10000)
 }
 
+const produceOrbs = function() {
+    new Orb(playground);
+    timeBetweenOrbs = setTimeout(produceOrbs, 1500)
+}
+
 const gameStop = function() {
     clearTimeout(timeBetweenOrbs);
     removeOrbsFromPlayground();
@@ -80,10 +85,6 @@ const gameReset = function() {
     }
 }
 
-const produceOrbs = function() {
-    new Orb(playground);
-    timeBetweenOrbs = setTimeout(produceOrbs, 1500)
-}
 
 const removeOrbsFromPlayground = function() {
     const allOrbs = Array.from(document.querySelectorAll('.orb'));

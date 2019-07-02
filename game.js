@@ -5,15 +5,17 @@ import { Level } from './Level.js';
 const playground = document.querySelector('#playground');
 const killNumberText = document.querySelector('#killNumberText');
 const levelNumberText = document.querySelector('#levelNumberText');
+const gameOverMessage = document.querySelector('#gameOverText');
+
 let killCount = 0;
 let levelCount = 1;
 let timeBetweenOrbs;
 let timeBetweenNewLevel;
-let gameOverMessage;
 
 
 const init = () => {
     addEventListenersToButtons()
+    gameOverMessage.style.display = 'none';
 }
 
 const addEventListenersToButtons = () => {
@@ -55,10 +57,20 @@ const setLevelCount = (count) => {
     levelNumberText.textContent = levelCount;
 }
 
+const displayGameOverMessage = function () {
+    console.log('display GAMEOVER')
+    gameOverMessage.style.display = 'block';
+}
+
+const removeGameOverMessage = function () {
+    console.log('remove GAMEOVER')
+    gameOverMessage.style.display = 'none';
+}
+
 
 const gameStart = function() {
     produceOrbs();
-    timeBetweenNewLevel = setInterval(advanceOneLevel, 10000)
+    timeBetweenNewLevel = setInterval(advanceOneLevel, 1000)
 }
 
 const produceOrbs = function() {
@@ -79,10 +91,7 @@ const gameReset = function() {
     removeAllLevels();
     setHitCount(0);
     setLevelCount(0);
-    console.log(gameOverMessage);
-    if(gameOverMessage){
-        removeGameOverMessage();
-    }
+    removeGameOverMessage();
 }
 
 
@@ -107,27 +116,18 @@ const removeAllLevels = function () {
 }
 
 const checkIfGameIsOver = function() {
-    if (levelCount >= 10){
+    if (levelCount > 10){
+        setLevelCount(10);
         concludeGame();
     }
 }
+
 
 const concludeGame = function() {
     gameStop();
     displayGameOverMessage();
 }
 
-const displayGameOverMessage = function() {
-    gameOverMessage = document.createElement('h1');
-    gameOverMessage.classList.add('gameOverText')
-    gameOverMessage.textContent = 'GAME OVER';
-    playground.appendChild(gameOverMessage);
-}
-
-const removeGameOverMessage = function() {
-    playground.removeChild(gameOverMessage);
-    gameOverMessage = undefined;
-}
 
 
 init();
